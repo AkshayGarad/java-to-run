@@ -1,0 +1,16 @@
+pipeline {
+  agent any
+
+  environment {
+    AWS_REGION = 'us-east-1'  // Replace with your desired AWS region
+    EC2_INSTANCE = 'i-0ded7d9d39e4363b4'  // Replace with your EC2 instance ID
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AkshayGarad/java-to-run.git']])
+      }
+    }
+  }
+}
