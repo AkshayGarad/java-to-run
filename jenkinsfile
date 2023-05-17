@@ -12,5 +12,29 @@ pipeline {
         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AkshayGarad/java-to-run.git']])
       }
     }
+
+
+    stage('Deploy') {
+      steps {
+        sh '''
+          # Copy code to nginx
+          sudo cp -r /var/lib/jenkins/workspace/java/* /var/www/html
+          
+          # Adjust file ownership and permissions:
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 755 /var/www/html
+
+          # Configure Nginx to serve the web page:
+          server {
+          ...
+          root /var/www/html;
+          ...
+          }
+
+          # Restart Nginx:
+          sudo service nginx restart
+        '''
+      }
+    }
   }
 }
