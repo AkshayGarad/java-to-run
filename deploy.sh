@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copy files to Nginx web root directory
-sudo cp -r ./* /var/www/html
+sudo cp -r /var/lib/jenkins/workspace/java/* /var/www/html
 
 # Adjust file ownership and permissions
 sudo chown -R www-data:www-data /var/www/html
